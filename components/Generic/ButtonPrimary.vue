@@ -4,22 +4,22 @@
   </button>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'ButtonPrimary',
   props: {
     type: {
       type: String as PropType<string>,
-      default: 'is-primary'
+      default: 'is-primary',
     },
     loading: {
       type: Boolean as PropType<boolean>,
-      default: false
-    }
+      default: false,
+    },
   },
   setup () {
 
-  }
+  },
 })
 </script>

@@ -1,28 +1,29 @@
 <template>
   <div class="col">
     <NewsItem
-    v-for="(post, index) in news" 
-    :key="post.id" />
+      v-for="post in news"
+      :key="post.id"
+    />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, } from '@nuxtjs/composition-api'
 
 import NewsItem from '@/components/News/NewsItem.vue'
 
 export default defineComponent({
   name: 'NewsList',
   components: {
-    NewsItem
+    NewsItem,
   },
   props: {
     News: Array as PropType<object[]>,
-    default: () => { return {} }
+    default: () => { return {} },
   },
   setup () {
     return {
 
     }
-  }
+  },
 })
 </script>

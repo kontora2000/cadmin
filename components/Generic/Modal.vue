@@ -10,10 +10,14 @@
           <button class="delete" aria-label="close" />
         </header>
         <section class="modal-card-body">
-          <!-- Content ... -->
+          <slot name="body" />
         </section>
         <footer class="modal-card-foot">
-          <button v-for="button in buttons" :class="button.type">
+          <button
+            v-for="button in buttons"
+            :key="button.id"
+            :class="button.type"
+          >
             {{ button.text }}
           </button>
         </footer>
@@ -23,17 +27,18 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, } from '@nuxtjs/composition-api'
+import { useModal, } from '~/composition/modal'
 
 export default defineComponent({
   name: 'Modal',
-  props: {
-    buttons: {
-      type: Array as PropType<object[]>,
-      default: () => [],
-    }
-  }
   setup () {
+    const { hideModal, buttons, } = useModal()
 
+    return {
+      buttons,
+      hideModal,
+      generateKey: () => Symbol(Date.now()),
+    }
   },
 })
 </script>

@@ -2,6 +2,7 @@
   <div>
     <div>
       <img :src="local.avatar">
+      <ImageLoader />
     </div>
     <EditableField
       v-model="local.name"
@@ -25,14 +26,21 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, } from '@nuxtjs/composition-api'
+
 import EditableField from '@/components/Generic/EditableField.vue'
+import ImageLoader from '@/components/Generic/ImageLoader.vue'
+
 import { Candidate, } from '~/modules/types'
+
 import { useAxios, } from '~/composition/axios'
 import { useSnackbar, } from '~/composition/snackbar'
 
 export default defineComponent({
   name: 'Candidate',
-  components: EditableField,
+  components: {
+    EditableField,
+    ImageLoader,
+  },
   props: {
     candidate: {
       type: Object as PropType<Candidate>,
@@ -49,9 +57,9 @@ export default defineComponent({
       try {
         const response = await $axios.put(baseURL + '/candidate/', local.value)
         if (response.ok) {
-          showNotification('Данные обновлены', 'is-success')
+          showNotification('Данные обновлены', 'success')
         } else {
-          showNotification('Ошибка при обновлении данных', 'is-danger')
+          showNotification('Ошибка при обновлении данных', 'danger')
         }
       } catch (e) {
         console.error(e)

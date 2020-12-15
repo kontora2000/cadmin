@@ -9,11 +9,13 @@ export const useModal = () => {
     isModalVisible.value = true
   }
 
-  const hidModal = () => {
+  const hideModal = () => {
     isModalVisible.value = false
   }
   return {
     showModal,
+    hideModal,
     isModalVisible: computed(() => isModalVisible),
+    buttons,
   }
 }
