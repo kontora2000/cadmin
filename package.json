@@ -17,6 +17,7 @@
     "@nuxtjs/bulma": "^1.3.0",
     "@nuxtjs/composition-api": "^0.17.0",
     "core-js": "^3.6.5",
+    "eslint-plugin-vue-libs": "^4.0.0",
     "nuxt": "^2.14.6",
     "pug": "^3.0.0"
   },
@@ -30,9 +31,12 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.5.0",
-    "eslint": "^7.10.0",
+    "eslint": "^7.15.0",
     "eslint-plugin-nuxt": "^1.0.0",
+    "eslint-plugin-vue": "^7.2.0",
     "jest": "^26.5.0",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
     "ts-jest": "^26.4.1",
     "vue-jest": "^3.0.4"
   }
