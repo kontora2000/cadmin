@@ -9,7 +9,7 @@ export function useAxios (): any {
     throw new Error('nuxt axios is not defined!')
   }
 
-  const baseURL = process.env.VUE_APP_API_URL
+  const baseURL = 'http://127.0.0.1:8000/api'
 
   return {
     $axios,

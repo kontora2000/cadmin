@@ -1,14 +1,12 @@
 <template>
-  <main>
-  </main>
+  <div class="loader-wrapper">
+    <div class="loader is-loading" />
+  </div>
 </template>
-
 <script lang="ts">
 import { defineComponent, } from '@nuxtjs/composition-api'
-import NewsList from '~/components/News/NewsList.vue'
 
 export default defineComponent({
-  name: 'Index',
-  components: { NewsList, },
+  name: 'LoadingIndicator',
 })
 </script>

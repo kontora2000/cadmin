@@ -1,8 +1,11 @@
 <template>
   <div>
-    <TheSidebar />
+    <div class="main-content columns is-fullheight">
+      <TheSidebar />
+      <Nuxt class="section column is-6"/>
+    </div>
     <Modal />
-    <Nuxt />
+    <Snackbar />
     <TheFooter />
   </div>
 </template>
@@ -12,6 +15,7 @@ import { defineComponent, } from '@nuxtjs/composition-api'
 
 import TheSidebar from '@/components/TheSidebar.vue'
 import TheFooter from '@/components/TheFooter.vue'
+import Snackbar from '@/components/Generic/Snackbar.vue'
 import Modal from '~/components/Generic/Modal.vue'
 
 export default defineComponent({
@@ -19,6 +23,7 @@ export default defineComponent({
   components: {
     TheSidebar,
     TheFooter,
+    Snackbar,
     Modal,
   },
 })

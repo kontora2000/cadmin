@@ -1,37 +1,31 @@
 <template>
-  <div class="col">
+  <div v-if="posts" class="col">
     <NewsItem
-      v-for="post in news"
+      v-for="post in posts"
       :key="post.id"
+      :post="post"
     />
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent, PropType, ref, useFetch, } from '@nuxtjs/composition-api'
 
 import NewsItem from '@/components/News/NewsItem.vue'
 import { Post, } from '@/modules/types'
 import { useAxios, } from '@/composition/axios'
+import ButtonPrimary from '@/components/Generic/ButtonPrimary.vue'
 
 export default defineComponent({
   name: 'NewsList',
   components: {
     NewsItem,
   },
-  setup () {
-    const news = ref<Post[]>([])
-    const page = ref<number>(1)
-
-    const { $axios, } = useAxios()
-
-    const { fetch, fetchState, } = useFetch(async () => {
-      news.value = await $axios.get('/news/list/' + page.value)
-    })
-
-    fetch()
-    return {
-      news,
-    }
+  props: {
+    posts: {
+      type: Array as PropType<Post[]>,
+      default: [] as Post[],
+    },
   },
 })
 </script>

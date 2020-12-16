@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'cadmin',
+    title: 'Администрирование',
     meta: [
       { charset: 'utf-8', },
       { name: 'viewport', content: 'width=device-width, initial-scale=1', },
@@ -10,6 +10,10 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico', }
     ],
+  },
+
+  env: {
+    baseURL: process.env.API_URL || 'http://localhost:8000',
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)

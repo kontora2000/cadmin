@@ -1,14 +1,17 @@
-<template lang="pug">
-transition(name="scale-in" :appear="true")
-    .common-notification-wrapper(v-if="isNotifVisible")
-        .common-notification(
-            :class="'common-notification--' + notificationClass"
-        )
-            .common-notification__message-wrapper
-                .common-notification__message {{ message }}
-                span.common-notification_close-wrapper
-                    a.common-notification__close(@click="hideNotification") &times;
-
+<template>
+  <transition name="scale-in" :appear="true">
+    <div v-if="isNotifVisible" class="common-notification-wrapper">
+      <div class="common-notification" :class="'common-notification--' + notificationClass">
+        <div class="common-notification__message-wrapper">
+          <div class="common-notification__message">
+            {{ message }}
+          </div><span class="common-notification_close-wrapper">
+            <a class="common-notification__close" @click="hideNotification">&times;</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -81,7 +84,7 @@ export default defineComponent({
           justify-content: space-between;
       }
       &--default {
-          background:$default-color;
+          background:#fff;
       }
       &--success {
           background-image:linear-gradient(90.21deg, #24B413 0.16%, #1C8E1F 99.82%);
@@ -93,10 +96,9 @@ export default defineComponent({
           background-image:linear-gradient(90.21deg, #b6f73e 0.16%, #f8bf21 99.82%)
       }
       &__message{
-          color: $default-color;
+          color: #fff;
           line-height: 22px;
           font-size: 14px;
-          font-family: $mainFont;
           font-weight: 500;
       }
       &_close-wrapper {
@@ -105,7 +107,7 @@ export default defineComponent({
       }
       &__close{
           cursor: pointer;
-          color:$default-color;
+          color:#fff;
           font-size: 30px;
           top:-20px;
           position: absolute;

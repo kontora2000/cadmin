@@ -1,38 +1,64 @@
 <template>
-  <main class="container">
+  <div>
+    <h1 class="is-size-1 has-text-black">
+      Новости  <nuxt-link to="/edit/news/create" class="has-text-dark is-size-6 container">
+        <span class="container is-align-self-center ">
+          <b-icon
+            icon="plus"
+            size="is-small"
+          /> Добавить </span>
+      </nuxt-link>
+    </h1>
     <section v-if="!isLoading">
-      <NewsList v-if="news.length > 0" />
+      <template v-if="posts.length > 0">
+        <NewsList :posts="posts" />
+        <button-primary v-if="isNeedToLoad" :loading="isUpLoading">
+          Загрузить еще
+        </button-primary>
+      </template>
       <div v-else>
         Нет новостей
       </div>
     </section>
-    <div class="loader-wrapper">
-      <div class="loader is-loading" />
-    </div>
-  </main>
+    <LoadingIndicator v-else />
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, ref, } from '@nuxtjs/composition-api'
 
+import { Post, } from '@/modules/types'
+
 import { useAxios, } from '@/composition/axios'
+
+import NewsList from '@/components/News/NewsList.vue'
+import LoadingIndicator from '~/components/Generic/LoadingIndicator.vue'
 
 export default defineComponent({
   name: 'Index',
+  components: {
+    LoadingIndicator,
+  },
   transition: 'fade',
 
   setup () {
     const { $axios, } = useAxios()
 
     const isLoading = ref(true)
+    const isNeedToLoad = ref(false)
+    const isUpLoading = ref(false)
 
     const page = ref(1)
-    const news = ref([])
+    const posts = ref<Post[]>([])
     const fetchNews = async () => {
       try {
-        const response = await $axios.get(process.env.VUE_APP_BASE_URL + '/post/list?page=' + page.value)
+        if (page.value > 1) { isUpLoading.value = true }
+        const response = await $axios.get('post/list?page=' + page.value)
         if (response.status === 200) {
-          news.value = (page.value === 1) ? response.data : [...news.value, ...response.data]
+          posts.value = (page.value === 1) ? response.data.data : [...posts.value, ...response.data.data]
+          page.value = page.value === response.last_page ? page.value : page.value + 1
+          isNeedToLoad.value = page.value === response.last_page
         }
+        if (page.value > 1) { isUpLoading.value = false }
       } catch (e) {
         console.error(e)
       }
@@ -45,7 +71,10 @@ export default defineComponent({
 
     return {
       page,
-      news,
+      posts,
+      isLoading,
+      isNeedToLoad,
+      isUpLoading,
     }
   },
 })

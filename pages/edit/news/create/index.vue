@@ -1,5 +1,9 @@
 <template>
-  <NewsEditor post="post" />
+  <NewsEditor
+    :post="post"
+    is-create
+    @submit.prevent="createPost"
+  />
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, useContext, useFetch, } from '@nuxtjs/composition-api'
@@ -14,13 +18,22 @@ export default defineComponent({
   setup () {
     const { params, } = useContext()
 
-    const { local: post, fetchPost, } = usePost({} as Post, params.value.id)
-
-    fetchPost()
+    const { local: post, createPost, } = usePost({
+      id: null,
+      content: '',
+      subcontent: '',
+      title: '',
+      excerpt: '',
+      subtitle: '',
+      slug: '',
+      imageID: null,
+      galleryID: null,
+      locationID: null,
+    } as Post, '')
 
     return {
       post,
-      fetchPost,
+      createPost,
     }
   },
 })

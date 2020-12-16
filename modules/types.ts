@@ -4,27 +4,31 @@ export interface Post {
   subcontent: string;
   title: string;
   excerpt: string;
-  subittle: string;
+  subtitle: string;
   slug: string;
-  imageID: number;
-  galleryID: number;
-  locationID: number;
+  imageID: number | null;
+  galleryID: number | null;
+  locationID: number | null;
 }
 
 export interface Candidate {
   id: number | null;
   name: string;
   status: string;
-  partID: number;
-  votes: number;
-  avatarID: number;
-  galleryID: number;
+  partID: number | null;
+  votes: number | null;
+  avatarID: number | null;
+  galleryID: number | null;
   description: string;
+  tagID: number | null;
 }
 
 export interface Tag {
   id: number | null,
   name: string,
-  type: string,
-  ownerID: number;
+}
+
+export interface PostTag {
+  id: number;
+  postID: number;
 }
