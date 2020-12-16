@@ -1,12 +1,19 @@
-import { ref, } from '@nuxtjs/composition-api'
+import { ref, useFetch, } from '@nuxtjs/composition-api'
 import axios from 'axios'
 import { useSnackbar, } from '@/composition/snackbar'
 import { Post, } from '~/modules/types'
 
-export const usePost = (post: Post, baseURL: string) => {
+export const usePost = (post: Post, id: any) => {
+  const baseURL = process.env.VUE_APP_API_URL
+
   const { showNotification, } = useSnackbar()
 
   const local = ref<Post>(post)
+
+  const { fetch: fetchPost, } = useFetch(async () => {
+    const response = await axios.get(baseURL + '/news/' + id)
+    local.value = response.data
+  })
 
   const updatePost = async () => {
     try {
@@ -40,5 +47,6 @@ export const usePost = (post: Post, baseURL: string) => {
     local,
     updatePost,
     deletePost,
+    fetchPost,
   }
 }

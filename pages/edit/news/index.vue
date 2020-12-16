@@ -12,16 +12,16 @@
   </main>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref, } from '@nuxtjs/composition-api'
 
-import { useAxios } from '@/composition/axios'
+import { useAxios, } from '@/composition/axios'
 
 export default defineComponent({
-  name: 'index',
+  name: 'Index',
   transition: 'fade',
 
   setup () {
-    const { $axios } = useAxios()
+    const { $axios, } = useAxios()
 
     const isLoading = ref(true)
 
@@ -29,9 +29,9 @@ export default defineComponent({
     const news = ref([])
     const fetchNews = async () => {
       try {
-        const response = await $axios.get('/news/?page=1')
+        const response = await $axios.get(process.env.VUE_APP_BASE_URL + '/post/list?page=' + page.value)
         if (response.status === 200) {
-          news.value = response.data
+          news.value = (page.value === 1) ? response.data : [...news.value, ...response.data]
         }
       } catch (e) {
         console.error(e)
@@ -45,8 +45,8 @@ export default defineComponent({
 
     return {
       page,
-      news
+      news,
     }
-  }
+  },
 })
 </script>

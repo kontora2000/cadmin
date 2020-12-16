@@ -1,18 +1,27 @@
-<template lang="pug">
-<NewsEditor post="post"/>
+<template>
+  <NewsEditor post="post" />
 </template>
 <script lang="ts">
-import { defineComponent, ref, useFetch, } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, ref, useContext, useFetch, } from '@nuxtjs/composition-api'
 
-import NewsEditor from '@/components/News/NewsEditor'
+import NewsEditor from '@/components/News/NewsEditor.vue'
 
-im
+import { Post, } from '@/modules/types'
+import { usePost, } from '@/composition/post'
 
 export default defineComponent({
-  name: 'Index',
-
+  transition: 'fade',
   setup () {
-    cont post = ref<Post>()
+    const { params, } = useContext()
+
+    const { local: post, fetchPost, } = usePost({} as Post, params.value.id)
+
+    fetchPost()
+
+    return {
+      post,
+      fetchPost,
+    }
   },
 })
 </script>

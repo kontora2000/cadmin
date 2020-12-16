@@ -1,14 +1,13 @@
-<template lang="pug">
- <form>
-  <input type="text" v-model="local.title" />
-  <input type="text" v-model="local.subtitle" />
-  <input type="text" class="is-disabled" v-model="local.slug" />
-  <input type="text" v-model="local.subcontent" />
-  <client-only>
-    <editor v-model="post.content" />
-  </client-only>
-  <TagsEditor />
- </form>
+<template>
+  <form>
+    <input v-model="local.title" type="text">
+    <input v-model="local.subtitle" type="text">
+    <input v-model="local.slug" type="text" class="is-disabled">
+    <input v-model="local.subcontent" type="text">
+    <client-only>
+      <editor v-model="local.content" />
+    </client-only>
+  </form>
 </template>
 
 <script lang="ts">
@@ -17,7 +16,9 @@ import Editor from '@tinymce/tinymce-vue'
 
 import { useTiny, } from '@/composition/tinymce.ts'
 import { useModal, } from '@/composition/modal'
-import { Post, } from '~/modules/types'
+import { usePost, } from '@/composition/post'
+
+import { Post, } from '@/modules/types'
 
 export default defineComponent({
   name: 'NewsEdit',
@@ -32,7 +33,7 @@ export default defineComponent({
 
     const { showModal, buttons, hideModal, } = useModal()
 
-    const { local, updatePost, deletePost } = ref<Post>(props.post)
+    const { local, updatePost, deletePost, } = usePost(props.post, process.env.VUE_APP_API_URL || '')
 
     buttons.value = [
       {
